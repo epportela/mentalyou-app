@@ -1,3 +1,5 @@
+import "react-native-gesture-handler";
+
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
 
@@ -9,9 +11,11 @@ import { DMSerifDisplay_400Regular } from "@expo-google-fonts/dm-serif-display";
 import { ThemeProvider } from "styled-components/native";
 
 import theme from "./src/theme";
+import { SignIn } from "@screens/SignIn";
+import { Routes } from "./src/routes";
 
 // Keep the splash screen visible while we fetch resources
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -32,12 +36,15 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <View
-        style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+      <View onLayout={onLayoutRootView} />
+      <Routes />
+      {/* <View
         onLayout={onLayoutRootView}
+        // style={{ display: "flex" }}
       >
-        <Text>MentalYou</Text>
-      </View>
+        <SignIn />
+      </View> */}
+      {/* <SignIn /> */}
     </ThemeProvider>
   );
 }
