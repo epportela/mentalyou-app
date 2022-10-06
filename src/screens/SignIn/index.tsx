@@ -1,12 +1,27 @@
 import { useEffect } from "react";
 
-import { Text, Button } from "react-native";
+import { Text, Button, ImageBackground } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 
 import * as AuthSession from "expo-auth-session";
 
-import { Container, HeaderText, GoogleAuthButton } from "./styles";
+import { initializeApp } from "firebase/app";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithCredential,
+} from "firebase/auth";
+
+import {
+  Container,
+  HeaderText,
+  GoogleAuthButton,
+  ButtonText,
+  Background,
+  Content,
+} from "./styles";
 
 const { CLIENT_ID } = process.env;
 const { REDIRECT_URI } = process.env;
@@ -17,6 +32,27 @@ interface AuthResponse {
     access_token: string;
   };
 }
+
+const { FIREBASE_API_KEY } = process.env;
+const { FIREBASE_AUTH_DOMAIN } = process.env;
+const { FIREBASE_PROJECT_ID } = process.env;
+const { FIREBASE_STORAGE_BUCKETt } = process.env;
+const { FIREBASE_MESSAGING_SENDER_ID } = process.env;
+const { FIREBASE_APP_ID } = process.env;
+const { FIREBASE_MEASUREMENT_ID } = process.env;
+
+const firebaseConfig = {
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN,
+  // databaseURL: "https://project-id.firebaseio.com",
+  projectId: FIREBASE_PROJECT_ID,
+  storageBucket: FIREBASE_STORAGE_BUCKETt,
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  appId: FIREBASE_APP_ID,
+  measurementId: FIREBASE_MEASUREMENT_ID,
+};
+
+initializeApp(firebaseConfig);
 
 export function SignIn() {
   const navigation = useNavigation();
@@ -32,6 +68,15 @@ export function SignIn() {
     })) as AuthResponse;
 
     if (type === "success") {
+      // const auth = getAuth();
+
+      // const credential = GoogleAuthProvider.credential(null, params.access_token);
+
+      // console.log("credential", credential);
+      // const result = await signInWithCredential(auth, credential);
+
+      // console.log("###RESULT###", result);
+
       navigation.navigate(
         "Home" as never,
         { token: params.access_token } as never
@@ -40,12 +85,16 @@ export function SignIn() {
   }
 
   return (
-    <Container>
-      <HeaderText>Olá!</HeaderText>
-      {/* <Button title="Entrar com o Google" onPress={handleSignIn} /> */}
-      <GoogleAuthButton onPress={handleSignIn}>
-        <Text>Entrar com o Google</Text>
-      </GoogleAuthButton>
-    </Container>
+    <Background
+      resizeMode="cover"
+      source={require("../../assets/background-login.png")}
+    >
+      <Content>
+        <HeaderText>Olá!</HeaderText>
+        <GoogleAuthButton onPress={handleSignIn}>
+          <ButtonText>Entrar com o Google</ButtonText>
+        </GoogleAuthButton>
+      </Content>
+    </Background>
   );
 }

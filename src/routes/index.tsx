@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SignIn } from "@screens/SignIn";
 import { Home } from "@screens/Home";
 import { Player } from "@screens/Player";
-import { Diary } from "@screens/Diary";
+import { Journal } from "@screens/Journal";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -24,7 +24,7 @@ export function Routes() {
         <Screen name="SignIn" component={SignIn} />
         <Screen name="Home" component={Home} />
         <Screen name="Player" component={Player} />
-        <Screen name="Diary" component={Diary} />
+        <Screen name="Journal" component={Journal} />
       </Stack.Navigator>
     </NavigationContainer>
   );

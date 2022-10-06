@@ -6,3 +6,6 @@ export const Container = styled.View`
   justify-content: center;
 `;
 
+export const Spinner = styled.ActivityIndicator`
+  color: ${({ theme }) => theme.COLORS.PRIMARY_900};
+`;
