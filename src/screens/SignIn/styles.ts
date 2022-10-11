@@ -2,19 +2,21 @@ import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
-  /* margin: 40px; */
   align-items: center;
 
   flex-direction: column;
   justify-content: space-between;
 `;
 
-export const HeaderText = styled.Text`
+export const PrimaryHeaderText = styled.Text`
   font-size: 50px;
-  font-weight: 450;
+  font-weight: 300;
 
-  color: ${({ theme }) => theme.COLORS.PRIMARY_900};
-  /* justify-content: center; */
+  color: ${({ theme }) => theme.COLORS.WHITE};
+`;
+
+export const SecondaryHeaderText = styled(PrimaryHeaderText)`
+  font-weight: 500;
 `;
 
 export const GoogleAuthButton = styled.TouchableOpacity`

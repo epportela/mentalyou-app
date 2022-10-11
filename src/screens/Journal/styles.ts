@@ -42,9 +42,35 @@ export const Subtitle = styled.View`
   margin-top: 15px;
 `;
 
+export const SubtitleText = styled.Text`
+  font-size: 18px;
+  font-weight: 450;
+`;
+
 export const InputArea = styled.TextInput`
   font-size: 20px;
 
   border-bottom-color: ${({ theme }) => theme.COLORS.PRIMARY_900};
   border-bottom-width: 1px;
+`;
+
+export const Button = styled.TouchableOpacity`
+  width: 70%;
+  height: 50px;
+
+  justify-content: center;
+  align-items: center;
+
+  align-self: center;
+
+  border-radius: 6px;
+  background-color: ${({ theme }) => theme.COLORS.DARK_800};
+
+  margin-top: 20px;
+`;
+
+export const ButtonText = styled.Text`
+  font-size: 25px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.COLORS.WHITE};
 `;

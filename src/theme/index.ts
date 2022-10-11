@@ -1,18 +1,19 @@
 export default {
   COLORS: {
-    WHITE: "#F7F7F7",
+    WHITE: "#FDFDFD",
 
-    PRIMARY_900: "#36006c",
-    PRIMARY_800: "#4a009c",
-    PRIMARY_500: "#8371c0",
+    PRIMARY_900: "#125566",
+    PRIMARY_800: "#0F8695",
 
-    SECONDARY_700: "#8371c0",
-    SECONDARY_500: "#5194d5",
-    SECONDARY_300: "#8fcaf0",
+    SECONDARY_700: "#4DB9CF",
+    SECONDARY_500: "#A2D3C9",
+    // SECONDARY_300: "#8fcaf0",
 
-    ALERT_900: "#fc8788",
-    ALERT_800: "#f5a69b",
-    ALERT_50: "#f2dfd5",
+    YELLOW_100: "#E3D9A7",
+
+    // ALERT_900: "#fc8788",
+    // ALERT_800: "#f5a69b",
+    // ALERT_50: "#f2dfd5",
 
     DARK_800: "#262136",
 

@@ -1,20 +1,54 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 
-import { View, Text, Button, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  ActivityIndicator,
+  Image,
+  ImageBackground,
+  FlatList,
+} from "react-native";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 import { getDatabase, ref, child, get } from "firebase/database";
 
-import { Container, Spinner } from "./styles";
+import {
+  LoadingScreen,
+  // ProfilePhoto,
+  // MeetingCard,
+  Spinner,
+  Header,
+  Container,
+  // Card,
+  BottomSheet,
+  Greetings,
+  UserName,
+  ProfilePhoto,
+  SecondaryHead,
+  MeetingSchedule,
+  ScheduleText1,
+  ScheduleText2,
+  MeetingScheduleButton,
+  MeetingScheduleButtonText,
+  SecondaryHeadText1,
+  SecondaryHeadText2,
+  ActionCards,
+  ActionCard,
+  CardContainer,
+  CardContainerText1,
+  CardContainerText2,
+  // UserName,
+} from "./styles";
 
 interface Params {
   token: string;
 }
 
-interface Profile {
+export interface Profile {
   id: string;
   name: string;
   email: string;
@@ -42,6 +76,31 @@ const firebaseConfig = {
   appId: FIREBASE_APP_ID,
   measurementId: FIREBASE_MEASUREMENT_ID,
 };
+
+const CARDS_DATA = [
+  {
+    id: 1,
+    screenName: "Journal",
+    title: "Escrita Terapêutica",
+    subtitle: "Organize seus pensamentos num lugar livre de julgamentos.",
+    backgroundPath: "../../assets/writing-background.jpg",
+  },
+  {
+    id: 2,
+    screenName: "Breathing",
+    title: "Acalmar agora!",
+    subtitle:
+      "Crise de ansiedade? Clique aqui para fazer um exercício de respiração!",
+    backgroundPath: "../../assets/breathing-background.jpg",
+  },
+  {
+    id: 3,
+    screenName: "Player",
+    title: "Relaxar",
+    subtitle: "Ouça sons de ambientes para diminuir a ansiedade.",
+    backgroundPath: "../../assets/calm-background.jpg",
+  },
+];
 
 export function Home() {
   const [profile, setProfile] = useState<Profile>();
@@ -90,9 +149,10 @@ export function Home() {
     loadProfile();
   }, []);
 
-  function handleNextScreen() {
+  function handleNextScreen(screenName: string) {
     navigation.navigate(
-      "Journal" as never
+      screenName as never,
+      profile as never
       // { token: params.access_token } as never
     );
   }
@@ -101,17 +161,93 @@ export function Home() {
 
   if (!profile) {
     return (
-      <Container>
-        <Spinner size="large" color="#36006c" />
-      </Container>
+      <LoadingScreen>
+        <Spinner size="large" color="#125566" />
+      </LoadingScreen>
     );
   }
 
+  const renderItem = ({ item }: any) => (
+    <ActionCard
+      resizeMode="cover"
+      imageStyle={{ borderRadius: 15 }}
+      source={
+        require("../../assets/calm-background.jpg")
+        //   () => {
+        //   if (item.screenName === "Journal") {
+        //     require("../../assets/writing-background.jpg");
+        //   } else if (item.screenName === "Breathing") {
+        //     require("../../assets/breathing-background.jpg");
+        //   } else {
+        //     require("../../assets/calm-background.jpg");
+        //   }
+        // }
+      }
+    >
+      <CardContainer onPress={() => handleNextScreen(item.screenName)}>
+        <CardContainerText1>{item.title}</CardContainerText1>
+        <CardContainerText2>{item.subtitle}</CardContainerText2>
+      </CardContainer>
+    </ActionCard>
+  );
+
+  //   <Container>
+  //   <Header
+  //     resizeMode="cover"
+  //     source={require("../../assets/home-header.jpg")}
+  //   />
+  //   <Card></Card>
+  // </Container>
+
   return (
-    <Container>
-      <Text>Home screen</Text>
-      <Text>{`Bem-vindo ${profile.family_name}!`}</Text>
-      <Button title="Journal" onPress={handleNextScreen} />
+    <Container
+      resizeMode="cover"
+      source={require("../../assets/home-background.jpg")}
+    >
+      <View>
+        <Header>
+          <View>
+            <Greetings>Olá,</Greetings>
+            {/* <UserName>{`${profile.given_name ?? "tudo bem?"} ${ */}
+            <UserName>{"Enzo Portela 👋"}</UserName>
+          </View>
+          <ProfilePhoto
+            source={{
+              uri: profile.picture,
+            }}
+          />
+        </Header>
+
+        <MeetingSchedule>
+          <ScheduleText1>Precisando de ajuda?</ScheduleText1>
+          <ScheduleText2>Agende uma consulta grátis!</ScheduleText2>
+        </MeetingSchedule>
+
+        <MeetingScheduleButton>
+          <MeetingScheduleButtonText>
+            Agendar consulta
+          </MeetingScheduleButtonText>
+        </MeetingScheduleButton>
+      </View>
+
+      <BottomSheet>
+        <SecondaryHead>
+          <SecondaryHeadText1>
+            Que tal começar o dia com tranquilidade?
+          </SecondaryHeadText1>
+          <SecondaryHeadText2>
+            Encontre conteúdos escolhidos com cuidado para você.
+          </SecondaryHeadText2>
+        </SecondaryHead>
+
+        <ActionCards>
+          <FlatList
+            data={CARDS_DATA}
+            renderItem={renderItem}
+            keyExtractor={(item: any) => item.id}
+          />
+        </ActionCards>
+      </BottomSheet>
     </Container>
   );
 }

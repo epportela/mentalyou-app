@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { Text, Button, ImageBackground } from "react-native";
 
@@ -16,11 +16,12 @@ import {
 
 import {
   Container,
-  HeaderText,
+  PrimaryHeaderText,
   GoogleAuthButton,
   ButtonText,
   Background,
   Content,
+  SecondaryHeaderText,
 } from "./styles";
 
 const { CLIENT_ID } = process.env;
@@ -68,17 +69,8 @@ export function SignIn() {
     })) as AuthResponse;
 
     if (type === "success") {
-      // const auth = getAuth();
-
-      // const credential = GoogleAuthProvider.credential(null, params.access_token);
-
-      // console.log("credential", credential);
-      // const result = await signInWithCredential(auth, credential);
-
-      // console.log("###RESULT###", result);
-
       navigation.navigate(
-        "Home" as never,
+        "Onboarding" as never,
         { token: params.access_token } as never
       );
     }
@@ -90,7 +82,9 @@ export function SignIn() {
       source={require("../../assets/background-login.png")}
     >
       <Content>
-        <HeaderText>Olá!</HeaderText>
+        <PrimaryHeaderText>
+          mental<SecondaryHeaderText>You</SecondaryHeaderText>
+        </PrimaryHeaderText>
         <GoogleAuthButton onPress={handleSignIn}>
           <ButtonText>Entrar com o Google</ButtonText>
         </GoogleAuthButton>

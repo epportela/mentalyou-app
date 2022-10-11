@@ -8,6 +8,9 @@ import { SignIn } from "@screens/SignIn";
 import { Home } from "@screens/Home";
 import { Player } from "@screens/Player";
 import { Journal } from "@screens/Journal";
+import { Breathing } from "@screens/Breathing";
+
+import OnboardingScreen from "@screens/Onboarding";
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -22,9 +25,11 @@ export function Routes() {
         }}
       >
         <Screen name="SignIn" component={SignIn} />
+        <Screen name="Onboarding" component={OnboardingScreen} />
         <Screen name="Home" component={Home} />
         <Screen name="Player" component={Player} />
         <Screen name="Journal" component={Journal} />
+        <Screen name="Breathing" component={Breathing} />
       </Stack.Navigator>
     </NavigationContainer>
   );
